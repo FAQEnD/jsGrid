@@ -1,1 +1,5 @@
 /* app css stylesheet */
+
+.col-md-2{
+  border: 1px solid black;
+}
