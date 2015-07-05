@@ -1,18 +1,16 @@
 [
     {
-        "name":"Anton", 
-        "login":"FAQ", 
-        "password":"3215had1", 
-        "birthDate":"20/06/1995", 
-        "registrationDate":"01/05/2015", 
+        "login":"FAQ",
+        "password":"3215had1",
+        "birthDate":"6/20/1995",
+        "registrationDate":"1/5/2015",
         "age":20
-    }, 
+    },
     {
-        "name":"Jeka", 
-        "login":"Ites", 
-        "password":"fkak321a", 
-        "birthDate":"05/01/1996", 
-        "registrationDate":"01/01/2015", 
+        "login":"Ites",
+        "password":"fkak321a",
+        "birthDate":"5/1/1996",
+        "registrationDate":"1/1/2015",
         "age":18
     }
 ]
