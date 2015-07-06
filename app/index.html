@@ -32,14 +32,14 @@
 				<button class="remove-btn" ng-click="removeUser(user.id)">Remove</button>
 			</div>
 			<div class="col-md-1">
-				<button class="update-btn" data-toggle="modal" data-target="#myModal" ng-click="updateUser(user)">Update</button>
+				<button class="update-btn" data-toggle="modal" data-target="#myModal" ng-click="isUpdate=true;checker(isUpdate);saveUser(user)">Update</button>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
 		<!-- Trigger the modal with a button -->
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Users</button>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="is.Update=false;checker(is.Update)">Add Users</button>
 
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
@@ -49,55 +49,61 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">User creator</h4>
+						<h4 class="modal-title" ng-show="show()">User Update</h4>
+						<h4 class="modal-title" ng-hide="show()">User Create</h4>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body container-fluid">
 						<form name="inputForm">
-							<label>
-								User login:
-								<input type="text" name="userLogin" ng-model="userData.login" required>
-
-							</label>
-							<div role="alert">
-								<span class="error" ng-show="inputForm.userLogin.$error.required">
-									Required!
-								</span>
+							<div class="col-md-6">
+								<label>
+									User login:
+									<input type="text" name="userLogin" ng-model="userData.login" required>
+								</label>
+								<div role="alert">
+									<span class="error" ng-show="inputForm.userLogin.$error.required">
+										Required!
+									</span>
+								</div>
 							</div>
-
-							<label>
-								User password:
-								<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="20" required>
-							</label>
-							<div role="alert">
-								<span class="error" ng-show="inputForm.userPassword.$error.minlength">
-								Too short!</span>
-								<span class="error" ng-show="inputForm.userPassword.$error.maxlength">
-								Too long!</span>
-								<span class="error" ng-show="inputForm.userPassword.$error.required">
-									Required!
-								</span>
+							<div class="col-md-6">
+								<label>
+									User password:
+									<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="20" required>
+								</label>
+								<div role="alert">
+									<span class="error" ng-show="inputForm.userPassword.$error.minlength">
+									Too short!</span>
+									<span class="error" ng-show="inputForm.userPassword.$error.maxlength">
+									Too long!</span>
+									<span class="error" ng-show="inputForm.userPassword.$error.required">
+										Required!
+									</span>
+								</div>
 							</div>
-
-							<label>
-							User birth Date:
-							<input type="date" name="userBirthDate" ng-model="userData.birthDate" placeholder="yyyy-MM-dd">
-							</label>
-							<div role="alert">
-								<span class="error" ng-show="inputForm.userBirthDate.$error.date">
-								Date Error!</span>
+							<div class="col-md-6">
+								<label>
+									User birth Date:
+									<input type="date" name="userBirthDate" ng-model="userData.birthDate" placeholder="yyyy-MM-dd">
+								</label>
+								<div role="alert">
+									<span class="error" ng-show="inputForm.userBirthDate.$error.date">
+									Date Error!</span>
+								</div>
 							</div>
-
-							<label>
-							User registration Date:
-							<input type="date" name="userRegistrationDate" ng-model="userData.registrationDate" placeholder="yyyy-MM-dd">
-							</label>
-							<div role="alert">
-								<span class="error" ng-show="inputForm.userRegistrationDate.$error.date">Date Error!</span>
+							<div class="col-md-6">
+								<label>
+									User registration Date:
+									<input type="date" name="userRegistrationDate" ng-model="userData.registrationDate" placeholder="yyyy-MM-dd">
+								</label>
+								<div role="alert">
+									<span class="error" ng-show="inputForm.userRegistrationDate.$error.date">Date Error!</span>
+								</div>
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-primary" ng-click="addUser(userData)">Add User</button>
+						<button class="btn btn-primary" ng-click="updateUser(userData)" ng-show="show()">Update User</button>
+						<button class="btn btn-primary" ng-click="addUser(userData)" ng-hide="show()">Add User</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>

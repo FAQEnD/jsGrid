@@ -10,6 +10,9 @@
 		return userAge;
 	}
 
+	var g_isUpdate = true;
+	var g_oldUser = [];
+
 	var dataFormats = 
 	[
 	    {
@@ -85,10 +88,34 @@
 		}
 
 		$scope.updateUser = function(user){
-			console.log($scope);
-
+			$http.put('http://localhost:2403/users/'+g_oldUser.id, {
+				login:user.login,
+				password:user.password,
+				birthDate:user.birthDate,
+				registrationDate:user.registrationDate,
+			}).success(function(user){
+				console.log("User with id "+g_oldUser.id+" was updated");
+				for(var i = 0; i < $scope.users.length; i++)
+				{
+					if($scope.users[i].id == g_oldUser.id){
+						$scope.users[i] = user;
+						break;
+					}
+				}
+				});
 		}
 
+		$scope.checker = function(isUpdate){
+			g_isUpdate = isUpdate;
+		}
+
+		$scope.show = function(){
+			return g_isUpdate;
+		}
+
+		$scope.saveUser = function(user){
+			g_oldUser = user;
+		}
 	})
 
 }());
