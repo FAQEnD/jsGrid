@@ -15,32 +15,42 @@
 <body ng-controller="gridCtrl">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">Login</div>
-			<div class="col-md-2">Password</div>
-			<div class="col-md-2">Birth Date</div>
-			<div class="col-md-2">Registration Date</div>
-			<div class="col-md-2">Age</div>
+			<div class="col-md-6 col-md-offset-3 center">
+				<h2>Simple JS Grid with CRUD logic</h2>
+			</div>
+		</div>
+		<div class="row row-main">
+			<div class="col-md-2"><h3>Login</h3></div>
+			<div class="col-md-2"><h3>Password</h3></div>
+			<div class="col-md-2"><h3>Birth Date</h3></div>
+			<div class="col-md-2"><h3>Reg Date</h3></div>
+			<div class="col-md-2"><h3>Age</h3></div>
+			<div class="col-md-2"><h3>Controllers</h3></div>
 		</div>
  	
-	 	<div class="row" ng-repeat="user in users">
-			<div class="col-md-2">{{user.login}}</div>
-			<div class="col-md-2">{{user.password}}</div>
-			<div class="col-md-2">{{user.birthDate}}</div>
-			<div class="col-md-2">{{user.registrationDate}}</div>
-			<div class="col-md-2">{{user.age}}</div>
-			<div class="col-md-1">
-				<button class="remove-btn" ng-click="removeUser(user.id)">Remove</button>
+	 	<div ng-repeat="user in users">
+		 	<div class="row" ng-class-odd="'row-first'" ng-class-even="'row-second'">
+				<div class="col-md-2"><span class="lead">{{user.login}}</span></div>
+				<div class="col-md-2"><span class="lead">{{user.password}}</span></div>
+				<div class="col-md-2"><span class="lead">{{user.birthDate | date:'mediumDate'}}</span></div>
+				<div class="col-md-2"><span class="lead">{{user.registrationDate | date:'mediumDate'}}</span></div>
+				<div class="col-md-2"><span class="lead">{{user.age}}</span></div>
+				<div class="col-md-1">
+					<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" ng-click="isUpdate=true;checker(isUpdate);saveUser(user)">Update</button>
+				</div>
+				<div class="col-md-1">
+					<button class="btn btn-danger btn-sm" ng-click="removeUser(user.id)">Remove</button>
+				</div>
 			</div>
-			<div class="col-md-1">
-				<button class="update-btn" data-toggle="modal" data-target="#myModal" ng-click="isUpdate=true;checker(isUpdate);saveUser(user)">Update</button>
+		</div>
+		<div class="row row-bottom">
+			<div class="col-md-2 col-md-offset-5">
+				<button type="button" class="btn btn-success button-add" data-toggle="modal" data-target="#myModal" ng-click="is.Update=false;checker(is.Update)">Add Users</button>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<!-- Trigger the modal with a button -->
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ng-click="is.Update=false;checker(is.Update)">Add Users</button>
-
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog">
@@ -57,9 +67,13 @@
 							<div class="col-md-6">
 								<label>
 									User login:
-									<input type="text" name="userLogin" ng-model="userData.login" required>
+									<input type="text" name="userLogin" ng-model="userData.login" ng-minlength="3" ng-maxlength="15" ng-init="userData.login='login'" required>
 								</label>
-								<div role="alert">
+								<div role="alert" class="alert alert-dismissible alert-danger" ng-show="inputForm.userLogin.$error.minlength || inputForm.userLogin.$error.required || inputForm.userLogin.$error.maxlength">
+									<span class="error" ng-show="inputForm.userLogin.$error.minlength">
+									Too short!</span>
+									<span class="error" ng-show="inputForm.userLogin.$error.maxlength">
+									Too long!</span>
 									<span class="error" ng-show="inputForm.userLogin.$error.required">
 										Required!
 									</span>
@@ -68,9 +82,9 @@
 							<div class="col-md-6">
 								<label>
 									User password:
-									<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="20" required>
+									<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="15" required>
 								</label>
-								<div role="alert">
+								<div role="alert" class="alert alert-dismissible alert-danger" ng-show="inputForm.userPassword.$error.minlength || inputForm.userPassword.$error.required || inputForm.userPassword.$error.maxlength">
 									<span class="error" ng-show="inputForm.userPassword.$error.minlength">
 									Too short!</span>
 									<span class="error" ng-show="inputForm.userPassword.$error.maxlength">
@@ -85,7 +99,7 @@
 									User birth Date:
 									<input type="date" name="userBirthDate" ng-model="userData.birthDate" placeholder="yyyy-MM-dd">
 								</label>
-								<div role="alert">
+								<div role="alert" class="alert alert-dismissible alert-danger" ng-show="inputForm.userBirthDate.$error.date">
 									<span class="error" ng-show="inputForm.userBirthDate.$error.date">
 									Date Error!</span>
 								</div>
@@ -95,7 +109,7 @@
 									User registration Date:
 									<input type="date" name="userRegistrationDate" ng-model="userData.registrationDate" placeholder="yyyy-MM-dd">
 								</label>
-								<div role="alert">
+								<div role="alert" class="alert alert-dismissible alert-danger" ng-show="inputForm.userRegistrationDate.$error.date">
 									<span class="error" ng-show="inputForm.userRegistrationDate.$error.date">Date Error!</span>
 								</div>
 							</div>

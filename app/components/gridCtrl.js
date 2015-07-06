@@ -70,7 +70,6 @@
 				if(user.birthDate != undefined)
 					user.age = calculateAge(user.birthDate);
 				$scope.users.push(user);
-				console.log($scope.userData.password);
 			});
 		}
 
@@ -88,6 +87,7 @@
 		}
 
 		$scope.updateUser = function(user){
+			console.log($scope);
 			$http.put('http://localhost:2403/users/'+g_oldUser.id, {
 				login:user.login,
 				password:user.password,
@@ -99,6 +99,7 @@
 				{
 					if($scope.users[i].id == g_oldUser.id){
 						$scope.users[i] = user;
+						$scope.users[i].age = calculateAge($scope.users[i].birthDate);
 						break;
 					}
 				}

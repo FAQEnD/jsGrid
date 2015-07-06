@@ -1,5 +1,29 @@
 /* app css stylesheet */
 
-.col-md-2{
-  border: 1px solid black;
+.col-md-2, .col-md-1, .button-add, .center{
+	text-align: center;
+}
+.row-first, .row-second, .row-main, .row-bottom{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.row-first{
+	background: #464545;
+}
+.row-second{
+	background: #222;
+	border-left: 3px solid #3498DB;
+}
+.row-main, .row-bottom{
+	background: #3498DB;
+}
+.row-main{
+	border-radius: 10px 10px 0px 0px;
+}
+.row-bottom{
+	border-radius: 0px 0px 10px 10px;
+}
+.alert{
+	width: 80%;
+	height: 40px;
 }
