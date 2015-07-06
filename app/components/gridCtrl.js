@@ -9,6 +9,13 @@
 		userAge = parseInt(userAge);
 		return userAge;
 	}
+	function getUserById(scope, id)
+	{
+		for(var i = 0; i < scope.users.length; i++){
+			if(scope.users[i].id == id)
+				return i;
+		}
+	}
 
 	var g_isUpdate = true;
 	var g_oldUser = [];
@@ -67,6 +74,7 @@
 				birthDate:user.birthDate,
 				registrationDate:user.registrationDate,
 			}).success(function(user){
+				console.log("User with id "+user.id+" was created");
 				if(user.birthDate != undefined)
 					user.age = calculateAge(user.birthDate);
 				$scope.users.push(user);
@@ -75,19 +83,12 @@
 
 		$scope.removeUser = function(id){
 			$http.delete('http://localhost:2403/users/'+id).success(function(user){
-				for(var i = 0; i < $scope.users.length; i++)
-				{
-					if($scope.users[i].id == id)
-					{
-						$scope.users.splice(i, 1);
-						break;
-					}
-				}
+				var index = getUserById($scope, id);
+				$scope.users.splice(index, 1);
 			});
 		}
 
 		$scope.updateUser = function(user){
-			console.log($scope);
 			$http.put('http://localhost:2403/users/'+g_oldUser.id, {
 				login:user.login,
 				password:user.password,
@@ -95,14 +96,9 @@
 				registrationDate:user.registrationDate,
 			}).success(function(user){
 				console.log("User with id "+g_oldUser.id+" was updated");
-				for(var i = 0; i < $scope.users.length; i++)
-				{
-					if($scope.users[i].id == g_oldUser.id){
-						$scope.users[i] = user;
-						$scope.users[i].age = calculateAge($scope.users[i].birthDate);
-						break;
-					}
-				}
+				var index = getUserById($scope, user.id);
+				$scope.users[index] = user;
+				$scope.users[index].age = calculateAge($scope.users[index].birthDate);
 				});
 		}
 
@@ -116,6 +112,19 @@
 
 		$scope.saveUser = function(user){
 			g_oldUser = user;
+		}
+
+		$scope.fillFields = function(command){
+			switch(command){
+				case 'update':
+					$scope.userData.login = g_oldUser.login;
+					$scope.userData.password = g_oldUser.password;
+					break;
+				case 'create':
+					$scope.userData.login = "";
+					$scope.userData.password = "";
+					break;
+			}
 		}
 	})
 

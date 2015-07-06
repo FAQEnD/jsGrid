@@ -36,7 +36,7 @@
 				<div class="col-md-2"><span class="lead">{{user.registrationDate | date:'mediumDate'}}</span></div>
 				<div class="col-md-2"><span class="lead">{{user.age}}</span></div>
 				<div class="col-md-1">
-					<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" ng-click="isUpdate=true;checker(isUpdate);saveUser(user)">Update</button>
+					<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" ng-click="isUpdate=true;checker(isUpdate);saveUser(user);fillFields('update')">Update</button>
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-danger btn-sm" ng-click="removeUser(user.id)">Remove</button>
@@ -45,7 +45,7 @@
 		</div>
 		<div class="row row-bottom">
 			<div class="col-md-2 col-md-offset-5">
-				<button type="button" class="btn btn-success button-add" data-toggle="modal" data-target="#myModal" ng-click="is.Update=false;checker(is.Update)">Add Users</button>
+				<button type="button" class="btn btn-success button-add" data-toggle="modal" data-target="#myModal" ng-click="is.Update=false;checker(is.Update);fillFields('create')">Add Users</button>
 			</div>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 							<div class="col-md-6">
 								<label>
 									User password:
-									<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="15" required>
+									<input type="text" name="userPassword" ng-model="userData.password" ng-minlength="3" ng-maxlength="15" ng-init="userData.password='password'" required>
 								</label>
 								<div role="alert" class="alert alert-dismissible alert-danger" ng-show="inputForm.userPassword.$error.minlength || inputForm.userPassword.$error.required || inputForm.userPassword.$error.maxlength">
 									<span class="error" ng-show="inputForm.userPassword.$error.minlength">
